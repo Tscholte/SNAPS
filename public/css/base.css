@@ -1,0 +1,19 @@
+#logo{
+    width: 1500px;
+}
+.footer{
+    position: fixed;
+    text-align: center;
+    vertical-align: bottom;
+}
+.navbar{
+    margin-top: 10px;
+}
+.container{
+    min-height: 300px;
+}
+@media screen and (max-width: 600px){
+    img{
+        display: none;
+    }
+}

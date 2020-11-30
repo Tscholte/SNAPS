@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-grid.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/public/css/bootstrap-reboot.css') }}">
+            <link rel="stylesheet" href="{{ asset('js/bootstrap.bundle.js') }}">
+            <link rel="stylesheet" href="{{ asset('js/bootstrap.min.js') }}">
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">{% endblock %}
+    </head>
+    <body>
+        {% block header %}
+            <div class="container-fluid">
+
+                <a href="{{ path('home') }}"><img id="logo" src="{{ asset('img/logo.png') }}" alt="Er is iets mis gegaan"></a>
+            </div>
+        {% endblock %}
+
+        {% block nav %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                {% block navinhoud %}
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('home') }}">Home</a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('AuPairlijst') }}">Au Pair</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('KlantenLijst') }}">Klanten</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Factuur (work in progress)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">gefactureerde (work in progress)</a>
+                                </li>
+                            {% elseif is_granted('ROLE_KLANT') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">uw informatie</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Klant</a>
+                                </li>
+                            {% elseif is_granted('ROLE_AUPAIR') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Your Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Au Pair</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endblock %}
+                {% if app.user %}
+                    <div class="mb-3 float-right">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+            </nav>
+        {% endblock %}
+
+        {% block img %}
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+        {% block footer %}
+        <div class="container-fluid footer">
+            <h5 class="font-weight-bold align-middle">Super Nanny Au Pair Services</h5>
+            <p>developed by Dedicated-Solutions 2020</p>
+        </div>
+        {% endblock %}
+    </body>
+</html>
+

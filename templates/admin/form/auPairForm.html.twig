@@ -1,0 +1,7 @@
+
+{% block form %}
+    {{ form_start(auPairForm, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(auPairForm) }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    {{ form_end(auPairForm) }}
+{% endblock %}
