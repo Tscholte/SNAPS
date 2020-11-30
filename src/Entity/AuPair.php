@@ -4,12 +4,10 @@ namespace App\Entity;
 
 use App\Repository\AuPairRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-
 /**
  * @ORM\Entity(repositoryClass=AuPairRepository::class)
  */
-class AuPair implements UserInterface
+class AuPair
 {
     /**
      * @ORM\Id
@@ -19,25 +17,14 @@ class AuPair implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $username;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
+    private $Name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $Status;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -85,64 +72,23 @@ class AuPair implements UserInterface
     private $City;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Klant::class, inversedBy="AuPair")
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="AuPair", cascade={"persist", "remove"})
      */
-    private $klant;
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Room::class, mappedBy="AuPair", cascade={"persist", "remove"})
+     */
+    private $room;
+
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $Opmerking;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -153,6 +99,18 @@ class AuPair implements UserInterface
     public function setName(string $Name): self
     {
         $this->Name = $Name;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->Status;
+    }
+
+    public function setStatus(string $Status): self
+    {
+        $this->Status = $Status;
 
         return $this;
     }
@@ -265,32 +223,53 @@ class AuPair implements UserInterface
         return $this;
     }
 
-    public function getKlant(): ?Klant
+    public function getUser(): ?User
     {
-        return $this->klant;
+        return $this->user;
     }
 
-    public function setKlant(?Klant $klant): self
+    public function setUser(?User $user): self
     {
-        $this->klant = $klant;
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAuPair = null === $user ? null : $this;
+        if ($user->getAuPair() !== $newAuPair) {
+            $user->setAuPair($newAuPair);
+        }
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
+    public function getRoom(): ?Room
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return $this->room;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function setRoom(?Room $room): self
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->room = $room;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAuPair = null === $room ? null : $this;
+        if ($room->getAuPair() !== $newAuPair) {
+            $room->setAuPair($newAuPair);
+        }
+
+        return $this;
+    }
+
+    public function getOpmerking(): ?string
+    {
+        return $this->Opmerking;
+    }
+
+    public function setOpmerking(?string $Opmerking): self
+    {
+        $this->Opmerking = $Opmerking;
+
+        return $this;
     }
 }
+
+

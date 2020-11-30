@@ -36,6 +36,13 @@ class KlantRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->_em->flush();
     }
 
+    public function getAllKlanten(){
+        $query = $this->createQueryBuilder('cg')
+            ->select('cg')
+            ->orderBy('cg.id', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Klant[] Returns an array of Klant objects
     //  */

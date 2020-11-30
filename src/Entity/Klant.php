@@ -6,12 +6,11 @@ use App\Repository\KlantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=KlantRepository::class)
  */
-class Klant implements UserInterface
+class Klant
 {
     /**
      * @ORM\Id
@@ -21,45 +20,29 @@ class Klant implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Family;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $Surname;
 
     /**
-     * @ORM\Column(type="decimal", precision=3, scale=2, nullable=true)
-     */
-    private $Korting;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Status;
+    private $Firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $City;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Postcode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -87,81 +70,23 @@ class Klant implements UserInterface
     private $Opmerking;
 
     /**
-     * @ORM\OneToMany(targetEntity=AuPair::class, mappedBy="klant")
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="Klant", cascade={"persist", "remove"})
      */
-    private $AuPair;
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Room::class, mappedBy="Klant", orphanRemoval=true)
+     */
+    private $rooms;
 
     public function __construct()
     {
-        $this->AuPair_Id = new ArrayCollection();
+        $this->rooms = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getFamily(): ?string
-    {
-        return $this->Family;
-    }
-
-    public function setFamily(string $Family): self
-    {
-        $this->Family = $Family;
-
-        return $this;
     }
 
     public function getSurname(): ?string
@@ -176,26 +101,26 @@ class Klant implements UserInterface
         return $this;
     }
 
-    public function getKorting(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->Korting;
+        return $this->Firstname;
     }
 
-    public function setKorting(?string $Korting): self
+    public function setFirstname(string $Firstname): self
     {
-        $this->Korting = $Korting;
+        $this->Firstname = $Firstname;
 
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getCity(): ?string
     {
-        return $this->Status;
+        return $this->City;
     }
 
-    public function setStatus(string $Status): self
+    public function setCity(string $City): self
     {
-        $this->Status = $Status;
+        $this->City = $City;
 
         return $this;
     }
@@ -208,6 +133,18 @@ class Klant implements UserInterface
     public function setPostcode(?int $Postcode): self
     {
         $this->Postcode = $Postcode;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }
@@ -272,50 +209,52 @@ class Klant implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|AuPair[]
-     */
-    public function getAuPair(): Collection
+    public function getUser(): ?User
     {
-        return $this->AuPair;
+        return $this->user;
     }
 
-    public function addAuPair(AuPair $auPair): self
+    public function setUser(?User $user): self
     {
-        if (!$this->AuPair->contains($auPair)) {
-            $this->AuPair[] = $auPair;
-            $auPair->setKlant($this);
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newKlant = null === $user ? null : $this;
+        if ($user->getKlant() !== $newKlant) {
+            $user->setKlant($newKlant);
         }
 
         return $this;
     }
 
-    public function removeAuPair(AuPair $auPair): self
+    /**
+     * @return Collection|Room[]
+     */
+    public function getRooms(): Collection
     {
-        if ($this->AuPair->removeElement($auPair)) {
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): self
+    {
+        if (!$this->rooms->contains($room)) {
+            $this->rooms[] = $room;
+            $room->setKlant($this);
+            $room->setStatus("zoekenopdracht");
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): self
+    {
+        if ($this->rooms->removeElement($room)) {
             // set the owning side to null (unless already changed)
-            if ($auPair->getKlant() === $this) {
-                $auPair->setKlant(null);
+            if ($room->getKlant() === $this) {
+                $room->setKlant(null);
             }
         }
 
         return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 }

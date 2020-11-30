@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=AdminRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class Admin implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -33,6 +33,16 @@ class Admin implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Klant::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $Klant;
+
+    /**
+     * @ORM\OneToOne(targetEntity=AuPair::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $AuPair;
 
     public function getId(): ?int
     {
@@ -105,5 +115,29 @@ class Admin implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getKlant(): ?Klant
+    {
+        return $this->Klant;
+    }
+
+    public function setKlant(?Klant $Klant): self
+    {
+        $this->Klant = $Klant;
+
+        return $this;
+    }
+
+    public function getAuPair(): ?AuPair
+    {
+        return $this->AuPair;
+    }
+
+    public function setAuPair(?AuPair $AuPair): self
+    {
+        $this->AuPair = $AuPair;
+
+        return $this;
     }
 }

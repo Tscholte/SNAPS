@@ -36,6 +36,13 @@ class AuPairRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->flush();
     }
 
+    public function getAllAuPairs(){
+        $query = $this->createQueryBuilder('cg')
+            ->select('cg')
+            ->orderBy('cg.id', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return AuPair[] Returns an array of AuPair objects
     //  */

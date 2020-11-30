@@ -1,0 +1,22 @@
+easy_admin:
+    site_name: 'S.N.A.P.S'
+
+    design:
+        menu:
+            - { route: 'home', label: 'Back to the website', icon: 'home' }
+            - { entity: 'AuPair', label: 'au pairs', icon: 'user' }
+            - { entity: 'Klant', label: 'klanten', icon: 'user' }
+
+    user:
+      display_name: true
+      #name_property_path: 'name'
+      display_avatar: false
+
+    entities:
+        Klant:
+            class: App\Entity\Klant
+
+        AuPair:
+            class: App\Entity\AuPair
+
+
