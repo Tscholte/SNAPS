@@ -10,7 +10,10 @@
             <link rel="stylesheet" href="{{ asset('js/bootstrap.min.js') }}">
             <link rel="stylesheet" href="{{ asset('css/base.css') }}">{% endblock %} #}
             <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
-            {% block stylesheets %}{% endblock %}
+             
+            {% block stylesheets %}
+            <link rel="stylesheet" href="/css/footer.css">
+            {% endblock %}
     </head>
     <body>
         {% block header %}
@@ -85,14 +88,4 @@
     
         {% block javascripts %}{% endblock %}
         
-    </body>
-    </footer>
-    {% block footer %}
-        <div class="container-sm d-flex flex-column justify-content-center mt-5">
-            <h5 class="font-weight-bold align-middle">Super Nanny Au Pair Services</h5>
-            <p>developed by Dedicated-Solutions 2020</p>
-        </div>
-        {% endblock %}
-        </footer>
-</html>
-
+   {{include('footer/footer.html.twig')}}
