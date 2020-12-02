@@ -3,8 +3,8 @@
     <div class="container">
         {% block datumbtn %}
         {% endblock %}
-        <table class="table">
-            <thead class="thead-dark">
+        <table class="table table-dark">
+            <thead class="thead-light">
             <tr>
                 {% block tablehead %}
                 <th>naam</th>
@@ -15,7 +15,7 @@
                 <th>email 2</th>
                 <th>mobiel 1</th>
                 <th>mobiel 2</th>
-                <th>more info / edit</th>
+                <th>info/edit</th>
                 <th>delete</th>
                 {% endblock %}
             </tr>
@@ -32,7 +32,7 @@
                 <td>{{ klant.Email2 }}</td>
                 <td>{{ klant.Mobile }}</td>
                 <td>{{ klant.Mobile2 }}</td>
-                <td><a href="KlantInfo/{{ klant.id }}"><button type="button" class="btn btn-success">More</button></a></td>
+                <td><a href="KlantInfo/{{ klant.id }}"><button type="button" class="btn btn-success">Info/Edit</button></a></td>
                 <td><a href="delete_klant/{{ klant.id }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
             </tr>
             {% endfor %}

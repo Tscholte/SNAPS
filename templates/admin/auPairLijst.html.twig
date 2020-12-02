@@ -1,25 +1,30 @@
 {% extends 'admin/KlantenLijst.html.twig' %}
 
 {% block tablehead %}
+
     <th>naam</th>
     <th>status</th>
     <th>klant</th>
     <th>email</th>
     <th>mobiel</th>
-    <th>more info / edit</th>
+    <th>info / edit</th>
     <th>delete</th>
+    
 {% endblock %}
 
 {% block tableobject %}
     {% for AuPair in AuPair  %}
+    
+    <thead>
         <tr>
             <th>{{ AuPair.name }}</th>
             <td>{{ AuPair.status }}</td>
             <td>{% if AuPair.status == 'geplaatst' or AuPair.status == 'match' %} {{ AuPair.room.Klant.name }} {% else %}  {% endif %}</td>
             <td>{{ AuPair.email }}</td>
             <td>{{ AuPair.mobile }}</td>
-            <td><a href="auPairInfo/{{ AuPair.id }}"><button type="button" class="btn btn-success">more</button></a></td>
+            <td><a href="auPairInfo/{{ AuPair.id }}"><button type="button" class="btn btn-success">Info/Edit</button></a></td>
             <td><a href="/delete_training/{{ AuPair.id }}"><button type="button" class="btn btn-danger">Delete</button></a></td>
         </tr>
+    </thead>
     {% endfor %}
 {% endblock %}

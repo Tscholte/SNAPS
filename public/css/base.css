@@ -2,9 +2,9 @@
     width: 1500px;
 }
 .footer{
-    position: fixed;
+    position: absolute;
     text-align: center;
-    vertical-align: bottom;
+    vertical-align:bottom;
 }
 .navbar{
     margin-top: 10px;

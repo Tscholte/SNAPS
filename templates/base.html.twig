@@ -3,29 +3,33 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        {# {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap-grid.css') }}">
             <link rel="stylesheet" href="{{ asset('css/public/css/bootstrap-reboot.css') }}">
             <link rel="stylesheet" href="{{ asset('js/bootstrap.bundle.js') }}">
             <link rel="stylesheet" href="{{ asset('js/bootstrap.min.js') }}">
-            <link rel="stylesheet" href="{{ asset('css/base.css') }}">{% endblock %}
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">{% endblock %} #}
+            <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+            {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block header %}
-            <div class="container-fluid">
-
-                <a href="{{ path('home') }}"><img id="logo" src="{{ asset('img/logo.png') }}" alt="Er is iets mis gegaan"></a>
-            </div>
+            
         {% endblock %}
 
         {% block nav %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+            <nav class="navbar navbar-expand-sm navbar-dark bg-info mb-3">
+            <div class="container">
+
+                <a href="{{ path('home') }}" class="navbar-brand"><img id="logo" src="{{ asset('img/logo.png') }}" alt="Er is iets mis gegaan"></a>
+            </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 {% block navinhoud %}
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
+                    <div class="collapse navbar-collapse col-4 row-cols-1" id="mobile-nav">
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ path('home') }}">Home</a>
                             </li>
@@ -37,10 +41,10 @@
                                     <a class="nav-link" href="{{ path('KlantenLijst') }}">Klanten</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Factuur (work in progress)</a>
+                                    <a class="nav-link bg-danger" href="#">Factuur</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">gefactureerde (work in progress)</a>
+                                    <a class="nav-link bg-danger" href="#">gefactureerde</a>
                                 </li>
                             {% elseif is_granted('ROLE_KLANT') %}
                                 <li class="nav-item">
@@ -61,8 +65,9 @@
                     </div>
                 {% endblock %}
                 {% if app.user %}
-                    <div class="mb-3 float-right">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    <div class="ml-2 row-cols-6 d-inline">
+                       Welcome {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                     
                     </div>
                 {% endif %}
 
@@ -74,12 +79,20 @@
 
         {% block body %}
         {% endblock %}
-        {% block footer %}
-        <div class="container-fluid footer">
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
+        {% block javascripts %}{% endblock %}
+        
+    </body>
+    </footer>
+    {% block footer %}
+        <div class="container-sm d-flex flex-column justify-content-center mt-5">
             <h5 class="font-weight-bold align-middle">Super Nanny Au Pair Services</h5>
             <p>developed by Dedicated-Solutions 2020</p>
         </div>
         {% endblock %}
-    </body>
+        </footer>
 </html>
 
