@@ -1,0 +1,8 @@
+.image {
+
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    display: flex;
+    margin-left: -16%;
+}
