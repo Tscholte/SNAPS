@@ -77,14 +77,14 @@ class AuPair
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Room::class, mappedBy="AuPair", cascade={"persist", "remove"})
-     */
-    private $room;
-
-    /**
      * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $Opmerking;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Room::class, inversedBy="AuPair")
+     */
+    private $room;
 
     public function getId(): ?int
     {
@@ -241,24 +241,6 @@ class AuPair
         return $this;
     }
 
-    public function getRoom(): ?Room
-    {
-        return $this->room;
-    }
-
-    public function setRoom(?Room $room): self
-    {
-        $this->room = $room;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newAuPair = null === $room ? null : $this;
-        if ($room->getAuPair() !== $newAuPair) {
-            $room->setAuPair($newAuPair);
-        }
-
-        return $this;
-    }
-
     public function getOpmerking(): ?string
     {
         return $this->Opmerking;
@@ -267,6 +249,18 @@ class AuPair
     public function setOpmerking(?string $Opmerking): self
     {
         $this->Opmerking = $Opmerking;
+
+        return $this;
+    }
+
+    public function getRoom(): ?Room
+    {
+        return $this->room;
+    }
+
+    public function setRoom(?Room $room): self
+    {
+        $this->room = $room;
 
         return $this;
     }

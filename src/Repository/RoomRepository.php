@@ -44,6 +44,17 @@ class RoomRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function findByKlant2($klant){
+        $z = "zoekopdracht";
+        $query = $this->createQueryBuilder('cg')
+            ->andWhere('cg.Klant = :val', 'cg.Status = :z')
+            ->setParameter('val', $klant)
+            ->setParameter('z', $z)
+            ->select('cg')
+            ->orderBy('cg.id', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
     public function findByAuPair($AuPair){
         $query = $this->createQueryBuilder('cg')
             ->andWhere('cg.AuPair = :val')
@@ -52,6 +63,7 @@ class RoomRepository extends ServiceEntityRepository
             ->orderBy('cg.id', 'ASC');
         return $query->getQuery()->getResult();
     }
+
 
     // /**
     //  * @return Room[] Returns an array of Room objects

@@ -19,14 +19,6 @@
 
 namespace Doctrine\ORM;
 
-
-use App\Entity\User;
-use App\Form\UserRegistrationFormType;
-use App\Entity\AuPair;
-use App\Form\AuPairRegistrationFormType;
-use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Klant;
-use App\Form\KlantRegistrationFormType;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

@@ -22,7 +22,7 @@ class QueryAdapter implements AdapterInterface
     private $countQueryBuilderModifier;
 
     /**
-     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results
+     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`
      *
      * @throws InvalidArgumentException if a non-SELECT query is given or the modifier is not a callable
      */
@@ -47,7 +47,13 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = $this->prepareCountQueryBuilder();
 
-        return (int) $qb->execute()->fetchColumn();
+        $stmt = $qb->execute();
+
+        if (method_exists($stmt, 'fetchOne')) {
+            return (int) $stmt->fetchOne();
+        }
+
+        return (int) $stmt->fetchColumn();
     }
 
     /**
@@ -60,10 +66,15 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = clone $this->queryBuilder;
 
-        return $qb->setMaxResults($length)
+        $stmt = $qb->setMaxResults($length)
             ->setFirstResult($offset)
-            ->execute()
-            ->fetchAll();
+            ->execute();
+
+        if (method_exists($stmt, 'fetchAllAssociative')) {
+            return $stmt->fetchAllAssociative();
+        }
+
+        return $stmt->fetchAll();
     }
 
     private function prepareCountQueryBuilder(): QueryBuilder

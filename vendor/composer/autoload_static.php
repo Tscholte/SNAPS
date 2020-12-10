@@ -12,10 +12,10 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -118,7 +118,6 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
-            'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
@@ -450,10 +449,6 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
         ),
-        'Doctrine\\Common\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
-        ),
         'Doctrine\\Common\\Collections\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
@@ -468,9 +463,9 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
-            2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
+            1 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -503,13 +498,18 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
     public static $classMap = array (
         'App\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/Controller/AdminController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
-        'App\\Entity\\Admin' => __DIR__ . '/../..' . '/src/Entity/Admin.php',
         'App\\Entity\\AuPair' => __DIR__ . '/../..' . '/src/Entity/AuPair.php',
         'App\\Entity\\Klant' => __DIR__ . '/../..' . '/src/Entity/Klant.php',
+        'App\\Entity\\Room' => __DIR__ . '/../..' . '/src/Entity/Room.php',
+        'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
+        'App\\Form\\AuPairFormType' => __DIR__ . '/../..' . '/src/Form/AuPairFormType.php',
+        'App\\Form\\KlantFormType' => __DIR__ . '/../..' . '/src/Form/KlantFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
-        'App\\Repository\\AdminRepository' => __DIR__ . '/../..' . '/src/Repository/AdminRepository.php',
         'App\\Repository\\AuPairRepository' => __DIR__ . '/../..' . '/src/Repository/AuPairRepository.php',
         'App\\Repository\\KlantRepository' => __DIR__ . '/../..' . '/src/Repository/KlantRepository.php',
+        'App\\Repository\\RoomRepository' => __DIR__ . '/../..' . '/src/Repository/RoomRepository.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
+        'App\\Security\\LoginFormAuthenticator' => __DIR__ . '/../..' . '/src/Security/LoginFormAuthenticator.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -540,6 +540,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Doctrine\\Bundle\\DoctrineBundle\\DataCollector\\DoctrineDataCollector' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/DataCollector/DoctrineDataCollector.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\BlacklistSchemaAssetFilter' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/BlacklistSchemaAssetFilter.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\Logging\\BacktraceLogger' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/Logging/BacktraceLogger.php',
+        'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\ManagerRegistryAwareConnectionProvider' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/ManagerRegistryAwareConnectionProvider.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\RegexSchemaAssetFilter' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/RegexSchemaAssetFilter.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\SchemaAssetsFilterManager' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/SchemaAssetsFilterManager.php',
         'Doctrine\\Bundle\\DoctrineBundle\\DependencyInjection\\Compiler\\CacheSchemaSubscriberPass' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/DependencyInjection/Compiler/CacheSchemaSubscriberPass.php',
@@ -636,7 +637,6 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Doctrine\\Common\\EventArgs' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventArgs.php',
         'Doctrine\\Common\\EventManager' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventManager.php',
         'Doctrine\\Common\\EventSubscriber' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventSubscriber.php',
-        'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
         'Doctrine\\Common\\Persistence\\PersistentObject' => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common/Persistence/PersistentObject.php',
         'Doctrine\\Common\\Proxy\\AbstractProxyFactory' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Proxy/AbstractProxyFactory.php',
@@ -1379,6 +1379,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Doctrine\\ORM\\Query\\AST\\Subselect' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/Subselect.php',
         'Doctrine\\ORM\\Query\\AST\\SubselectFromClause' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/SubselectFromClause.php',
         'Doctrine\\ORM\\Query\\AST\\SubselectIdentificationVariableDeclaration' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/SubselectIdentificationVariableDeclaration.php',
+        'Doctrine\\ORM\\Query\\AST\\TypedExpression' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/TypedExpression.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateClause' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateClause.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateItem' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateItem.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateStatement' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateStatement.php',
@@ -2491,6 +2492,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Symfony\\Bundle\\MakerBundle\\Util\\ComposeFileManipulator' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/ComposeFileManipulator.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\ComposerAutoloaderFinder' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/ComposerAutoloaderFinder.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\MakerFileLinkFormatter' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/MakerFileLinkFormatter.php',
+        'Symfony\\Bundle\\MakerBundle\\Util\\PhpCompatUtil' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/PhpCompatUtil.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\PrettyPrinter' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/PrettyPrinter.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\YamlManipulationFailedException' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/YamlManipulationFailedException.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\YamlSourceManipulator' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/YamlSourceManipulator.php',
@@ -2777,6 +2779,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Symfony\\Component\\Console\\Output\\Output' => __DIR__ . '/..' . '/symfony/console/Output/Output.php',
         'Symfony\\Component\\Console\\Output\\OutputInterface' => __DIR__ . '/..' . '/symfony/console/Output/OutputInterface.php',
         'Symfony\\Component\\Console\\Output\\StreamOutput' => __DIR__ . '/..' . '/symfony/console/Output/StreamOutput.php',
+        'Symfony\\Component\\Console\\Output\\TrimmedBufferOutput' => __DIR__ . '/..' . '/symfony/console/Output/TrimmedBufferOutput.php',
         'Symfony\\Component\\Console\\Question\\ChoiceQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ChoiceQuestion.php',
         'Symfony\\Component\\Console\\Question\\ConfirmationQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ConfirmationQuestion.php',
         'Symfony\\Component\\Console\\Question\\Question' => __DIR__ . '/..' . '/symfony/console/Question/Question.php',
@@ -3192,6 +3195,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationMapperInterface' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationMapperInterface.php',
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationPath' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationPath.php',
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationPathIterator' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationPathIterator.php',
+        'Symfony\\Component\\Form\\FileUploadError' => __DIR__ . '/..' . '/symfony/form/FileUploadError.php',
         'Symfony\\Component\\Form\\Form' => __DIR__ . '/..' . '/symfony/form/Form.php',
         'Symfony\\Component\\Form\\FormBuilder' => __DIR__ . '/..' . '/symfony/form/FormBuilder.php',
         'Symfony\\Component\\Form\\FormBuilderInterface' => __DIR__ . '/..' . '/symfony/form/FormBuilderInterface.php',
@@ -4298,6 +4302,7 @@ class ComposerStaticInitb9cca1bec24b520c4ada45765645eb6d
         'Symfony\\Flex\\Lock' => __DIR__ . '/..' . '/symfony/flex/src/Lock.php',
         'Symfony\\Flex\\Options' => __DIR__ . '/..' . '/symfony/flex/src/Options.php',
         'Symfony\\Flex\\PackageFilter' => __DIR__ . '/..' . '/symfony/flex/src/PackageFilter.php',
+        'Symfony\\Flex\\PackageJsonSynchronizer' => __DIR__ . '/..' . '/symfony/flex/src/PackageJsonSynchronizer.php',
         'Symfony\\Flex\\PackageResolver' => __DIR__ . '/..' . '/symfony/flex/src/PackageResolver.php',
         'Symfony\\Flex\\ParallelDownloader' => __DIR__ . '/..' . '/symfony/flex/src/ParallelDownloader.php',
         'Symfony\\Flex\\Path' => __DIR__ . '/..' . '/symfony/flex/src/Path.php',

@@ -6,7 +6,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserRegistrationFormType;
+use App\Repository\RoomRepository;
+use App\Repository\AuPairRepository;
+use App\Repository\KlantRepository;
 use App\Entity\AuPair;
+use App\Form\RoomFormType;
 use App\Form\AuPairFormType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Klant;
@@ -45,10 +49,11 @@ class AdminController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $klanten = $em->getRepository(Klant::class)->getAllKlanten();
         $rooms = $em->getRepository(Room::class)->getAll();
+        $AuPair = $em->getRepository(AuPair::class)->getAll();
         if($klanten == NULL){
             throw $this->createNotFoundException("er zijn geen klanten");
         }else{
-            return $this->render('admin/KlantenLijst.html.twig', ["klanten" => $klanten, "rooms"=>$rooms]);
+            return $this->render('admin/KlantenLijst.html.twig', ["klanten" => $klanten, "rooms"=>$rooms, "aupairs"=>$AuPair]);
         }
     }
 
@@ -71,21 +76,42 @@ class AdminController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($room);
             $em->flush();
+            $room = $em->getRepository(Room::class)->findByKlant($klant);
         }
+        $AuPair = $em->getRepository(AuPair::class)->findByRoom($room[0]);
+
+        $form2=$this->createForm(RoomFormType::class);
+        $form2->handleRequest($request);
         $form=$this->createForm(KlantFormType::class, $klant);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $klant = $form->getData();
             $em=$this->getDoctrine()->getManager();
-            $em->persist($klant);
+            $em->persist($Klant);
             $em->flush();
-            return $this->redirectToRoute('home', [
-                'id' => $klant->getId(),
-            ]);
-        }
-        return $this->render('admin/klantInfo.html.twig',["klant" => $klant, "room"=>$room, 'klantForm'=>$form->createView()]);
+            return $this->redirectToRoute('home');
+
+        }elseif ($form2->isSubmitted() && $form2->isValid()) {
+
+            $r2 = $em->getRepository(AuPair::class)->findById($form2["AuPair"]->getData());
+            $r2 = $r2[0];
+            $r2->setRoom($room[0]);
+
+            if($form2["korting"]->getData() != Null){
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($r2);
+                $em->flush();
+            }
+
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($r2);
+            $em->flush();
+            return $this->redirectToRoute('home');
+            }
+        return $this->render('admin/klantInfo.html.twig',["klant" => $klant, "room"=>$room, "Aupair"=>$AuPair, 'klantForm'=>$form->createView(), 'roomForm'=>$form2->createView()]);
     }
+    
 
     public function newKlant(Request $request)
     {
@@ -131,7 +157,7 @@ class AdminController extends AbstractController
      */
     public function AuPairlijst(){
         $em = $this->getDoctrine()->getManager();
-        $AuPair = $em->getRepository(AuPair::class)->getAllAuPairs();
+        $AuPair = $em->getRepository(AuPair::class)->getAll();
         $room = $em->getRepository(Room::class)->findAll();
         if($AuPair == NULL){
             throw $this->createNotFoundException("er zijn geen Au Pairs");
@@ -149,7 +175,7 @@ class AdminController extends AbstractController
     public function AuPairInfo($id, Request $request){
         $em = $this->getDoctrine()->getManager();
         $AuPair = $em->getRepository(AuPair::class)->find($id);
-        $room = $em->getRepository(Room::class)->findByAuPair($AuPair);
+        $room = $em->getRepository(Room::class)->getAll();
 
         
         $form=$this->createForm(AuPairFormType::class, $AuPair);

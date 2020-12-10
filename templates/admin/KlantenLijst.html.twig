@@ -27,7 +27,7 @@
                 <td>{{ klant.Firstname }}</td>
                 <th>{{ klant.Surname }}</th>
                 <td>{% for room in rooms  %} {% if room.klant.id == klant.id %} {{room.Status}} {% endif %} {% endfor %}</td>
-                <td>{% for room in rooms  %} {% if room.klant.id == klant.id %} {{room.AuPair}} {% endif %} {% endfor %}</td>
+                <td>{% for room in rooms  %} {% for aupair in aupairs  %} {% if room.klant.id == klant.id and klant.room is same as(aupair.room) %} {{aupair.name}} {% endif %}  {% endfor %} {% endfor %}</td>
                 <td>{{ klant.Email }}</td>
                 <td>{{ klant.Email2 }}</td>
                 <td>{{ klant.Mobile }}</td>

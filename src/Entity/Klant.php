@@ -75,9 +75,9 @@ class Klant
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Room::class, mappedBy="Klant", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Room::class, mappedBy="Klant", cascade={"persist", "remove"})
      */
-    private $rooms;
+    private $room;
 
     public function __construct()
     {
@@ -227,33 +227,19 @@ class Klant
         return $this;
     }
 
-    /**
-     * @return Collection|Room[]
-     */
-    public function getRooms(): Collection
+    public function getRoom(): ?Room
     {
-        return $this->rooms;
+        return $this->room;
     }
 
-    public function addRoom(Room $room): self
+    public function setRoom(Room $room): self
     {
-        if (!$this->rooms->contains($room)) {
-            $this->rooms[] = $room;
+        // set the owning side of the relation if necessary
+        if ($room->getKlant() !== $this) {
             $room->setKlant($this);
-            $room->setStatus("zoekenopdracht");
         }
 
-        return $this;
-    }
-
-    public function removeRoom(Room $room): self
-    {
-        if ($this->rooms->removeElement($room)) {
-            // set the owning side to null (unless already changed)
-            if ($room->getKlant() === $this) {
-                $room->setKlant(null);
-            }
-        }
+        $this->room = $room;
 
         return $this;
     }

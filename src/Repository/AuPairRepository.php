@@ -15,30 +15,34 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method AuPair[]    findAll()
  * @method AuPair[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AuPairRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class AuPairRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AuPair::class);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
-    {
-        if (!$user instanceof AuPair) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-        }
-
-        $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
-    }
-
-    public function getAllAuPairs(){
+    public function getAll(){
         $query = $this->createQueryBuilder('cg')
             ->select('cg')
+            ->orderBy('cg.id', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
+    public function findById($value){
+        $query = $this->createQueryBuilder('cg')
+            ->andWhere('cg.id = :val')
+            ->select('cg')
+            ->setParameter('val', $value)
+            ->orderBy('cg.id', 'ASC');
+        return $query->getQuery()->getResult();
+    }
+
+    public function findByRoom($value){
+        $query = $this->createQueryBuilder('cg')
+            ->andWhere('cg.room = :val')
+            ->select('cg')
+            ->setParameter('val', $value)
             ->orderBy('cg.id', 'ASC');
         return $query->getQuery()->getResult();
     }

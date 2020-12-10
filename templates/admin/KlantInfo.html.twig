@@ -2,18 +2,51 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-sm-4">
                 <h1>Gegevens</h1>
                 {{ include('admin/form/klantform.html.twig', {
                     button_text: 'Update!'
                 }) }}
             </div>
         
-            <div class="col">
+            <div class="col-sm-4">
                 <h1>Les editen</h1>
+                <table class="table table">
+                <thead class="thead-light">
+                <tr>
+                
+                {% block tablehead %}{% for aupair in Aupair  %}
+                    {% if aupair != null %}
+                    <th>AuPair</th>
+                    <th>verwijderen</th>
+                    {% endif %} {% endfor %}
+                
+                {% endblock %} 
+                </tr>
+                </thead>
+                <tbody>
+
+                {% block tableobject %}
+                    {% for aupair in Aupair  %}{% if Aupair != null %}
+                        <tr>
+                            <td>{{ aupair.name }} </td>
+                            <td><a href="#"><button type="button" class="btn btn-danger">verwijder</button></a></td>
+                        </tr>
+                    {% endif %}{% endfor %}
+                    </tbody>
+                </table>
+                {% endblock %}
+
+                <br>
+                {{ include('admin/form/roomform.html.twig', {
+                    button_text: 'Update!'
+                }) }}
             </div>
 
-
+            <div class="col-sm-4">
+                <h1>to-do</h1>
+                
+            </div>
         </div>
     </div>
 {% endblock %}

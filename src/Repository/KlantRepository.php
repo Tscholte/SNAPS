@@ -15,25 +15,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Klant[]    findAll()
  * @method Klant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class KlantRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class KlantRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Klant::class);
-    }
-
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
-    {
-        if (!$user instanceof Klant) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-        }
-
-        $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
     }
 
     public function getAllKlanten(){
